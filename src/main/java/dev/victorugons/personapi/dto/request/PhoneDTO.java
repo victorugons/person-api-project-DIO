@@ -2,16 +2,24 @@ package dev.victorugons.personapi.dto.request;
 
 
 import dev.victorugons.personapi.enums.PhoneType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-public class CreatePhoneDTO {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class PhoneDTO {
 
     @Enumerated(EnumType.STRING)
-    private PhoneType phoneType;
+    private PhoneType type;
 
     @NotEmpty
     @Size(min = 13, max = 14)

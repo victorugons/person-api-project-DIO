@@ -1,5 +1,7 @@
 package dev.victorugons.personapi.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +20,9 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Person {
 
     @Id
@@ -33,9 +37,9 @@ public class Person {
 
     @Column(nullable = false, unique = true)
     private String cpf;
-
+    
     private LocalDate birthDate;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<Phone> phones = new ArrayList<>();
+    private List<Phone> phones;
 }
