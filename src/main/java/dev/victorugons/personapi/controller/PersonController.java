@@ -3,6 +3,7 @@ package dev.victorugons.personapi.controller;
 import dev.victorugons.personapi.dto.request.PersonDTO;
 import dev.victorugons.personapi.dto.response.ResponseMessageDTO;
 import dev.victorugons.personapi.entity.Person;
+import dev.victorugons.personapi.exception.PersonNotFoundException;
 import dev.victorugons.personapi.service.PersonService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,4 +36,8 @@ public class PersonController {
         return personService.listAll();
     }
 
+    @GetMapping("/{id}")
+    public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
+        return personService.findById(id);
+    }
 }

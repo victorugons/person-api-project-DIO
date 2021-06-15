@@ -3,12 +3,15 @@ package dev.victorugons.personapi.service;
 import dev.victorugons.personapi.dto.request.PersonDTO;
 import dev.victorugons.personapi.dto.response.ResponseMessageDTO;
 import dev.victorugons.personapi.entity.Person;
+import dev.victorugons.personapi.exception.PersonNotFoundException;
 import dev.victorugons.personapi.mapper.PersonMapper;
 import dev.victorugons.personapi.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,5 +42,11 @@ public class PersonService {
         return allPeople.stream()
                 .map(personMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public PersonDTO findById(Long id) throws PersonNotFoundException {
+        Person person = personRepository.findById(id)
+                        .orElseThrow(() -> new PersonNotFoundException(id));
+        return personMapper.toDTO(person);
     }
 }
