@@ -6,6 +6,7 @@ import dev.victorugons.personapi.entity.Person;
 import dev.victorugons.personapi.exception.PersonNotFoundException;
 import dev.victorugons.personapi.mapper.PersonMapper;
 import dev.victorugons.personapi.repositories.PersonRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonService {
 
     private PersonRepository personRepository;
 
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
-
-    @Autowired
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
 
     public ResponseMessageDTO createPerson(PersonDTO personDTO) {
 
