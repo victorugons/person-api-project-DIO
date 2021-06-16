@@ -9,9 +9,7 @@ import dev.victorugons.personapi.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.PersistenceException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,10 +29,7 @@ public class PersonService {
         Person personToSave = personMapper.toModel(personDTO);
 
         Person savedPerson = personRepository.save(personToSave);
-        return ResponseMessageDTO
-                .builder()
-                .message("Created person with ID: " + savedPerson.getId())
-                .build();
+        return createResponseMessage(savedPerson.getId(), "Created person with ID: ");
     }
 
     public List<PersonDTO> listAll() {
@@ -59,4 +54,18 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
+    public ResponseMessageDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFoundException {
+        verifyIfExists(id);
+        Person personToUpdate = personMapper.toModel(personDTO);
+
+        Person updatedPerson = personRepository.save(personToUpdate);
+        return createResponseMessage(updatedPerson.getId(), "Updated person with ID: ");
+    }
+
+    private ResponseMessageDTO createResponseMessage(Long id, String message) {
+        return ResponseMessageDTO
+                .builder()
+                .message(message + id)
+                .build();
+    }
 }
