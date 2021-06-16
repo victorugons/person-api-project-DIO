@@ -19,6 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class PersonDTO {
 
+    private Long id;
+
     @NotEmpty
     @Size(min = 2, max = 100)
     private String firstName;

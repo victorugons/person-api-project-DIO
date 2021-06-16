@@ -18,6 +18,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class PhoneDTO {
 
+    private Long id;
+
     @Enumerated(EnumType.STRING)
     private PhoneType type;
 
